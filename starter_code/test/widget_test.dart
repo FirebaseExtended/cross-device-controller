@@ -38,7 +38,6 @@ void main() {
     await tester.pump();
 
     // Verify that player icon has updated.
-    // expect(find.byIcon(Icons.pause), findsNothing);
-    // expect(find.byIcon(Icons.pause), findsOneWidget);
+    expect(find.byIcon(Icons.pause), findsNothing);
   });
 }
