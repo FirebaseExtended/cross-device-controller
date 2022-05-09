@@ -69,41 +69,6 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     _initAudioPlayer();
   }
 
-  void updatePlayer(Map<dynamic, dynamic> snapshot) {
-    _updatePlayer(
-        snapshot['state'] as int, snapshot['slider_position'] as double);
-  }
-
-  void _updatePlayer(int state, double sliderPosition) {
-    // relingquish control of the stream.
-    if (_positionSubscription != null) {
-      _audioPlayer.release();
-      _positionSubscription?.cancel();
-      _positionSubscription = null;
-    }
-    try {
-      _updateSlider(sliderPosition);
-      final PlayerState newState = PlayerState.values[state];
-      switch (newState) {
-        case PlayerState.PLAYING:
-          _play();
-          break;
-        case PlayerState.PAUSED:
-          _pause();
-          break;
-        case PlayerState.STOPPED:
-        case PlayerState.COMPLETED:
-          _stop();
-          break;
-      }
-      _playerState = newState;
-    } catch (e) {
-      if (kDebugMode) {
-        print('sync player failed');
-      }
-    }
-  }
-
   @override
   void dispose() {
     _audioPlayer.dispose();
